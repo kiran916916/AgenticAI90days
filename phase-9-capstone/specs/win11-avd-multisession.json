@@ -1,0 +1,46 @@
+{
+  "name": "win11-avd-m365",
+  "resource_group": "rg-avd-images",
+  "location": "eastus",
+  "managed_identity": "id-aib-imaging",
+  "source": {
+    "publisher": "MicrosoftWindowsDesktop",
+    "offer": "office-365",
+    "sku": "win11-23h2-avd-m365",
+    "version": "latest",
+    "hyperVGeneration": "V2",
+    "securityType": "TrustedLaunchSupported"
+  },
+  "gallery": {
+    "name": "galAvdImages",
+    "imageDefinition": "win11-avd-m365",
+    "publisher": "contoso",
+    "offer": "avd",
+    "sku": "win11-23h2-m365",
+    "replicationRegions": ["eastus", "westus3"]
+  },
+  "customizers": [
+    "TimeZoneRedirection",
+    "DisableStorageSense",
+    "InstallFSLogix",
+    "ConfigureTeamsOptimizations",
+    "EnableRdpShortpath",
+    "EnableScreenCaptureProtection",
+    "SetSessionTimeouts",
+    "ApplyWindowsUpdates"
+  ],
+  "build": { "vmSize": "Standard_D2ds_v4", "timeoutMinutes": 120 },
+  "host_pool": { "name": "hp-avd-prod", "resourceGroup": "rg-avd", "rollout": "staged" },
+  "app_baseline": {
+    "required": [
+      { "name": "Microsoft 365 Apps", "exe": "winword.exe", "min_version": "16.0.17000.0" },
+      { "name": "Microsoft Teams", "exe": "ms-teams.exe", "min_version": "24000.0.0" },
+      { "name": "FSLogix", "exe": "frx.exe", "min_version": "2.9.8000.0" }
+    ],
+    "org_tools": [
+      { "name": "HancePro", "exe": "hancepro.exe", "installed_version": "3.2.1", "min_version": "3.2.0" }
+    ],
+    "forbidden": ["uTorrent", "Microsoft Teams (classic)"]
+  },
+  "security": { "block_on_severity": "High" }
+}

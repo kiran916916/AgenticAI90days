@@ -1,0 +1,21 @@
+# Secrets & env
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# Data & local stores (created in later phases)
+*.sqlite
+*.db
+.chroma/
+chroma/
+data/local/
+
+# OS / editor
+.DS_Store
+Thumbs.db
